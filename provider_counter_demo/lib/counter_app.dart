@@ -11,7 +11,12 @@ class CounterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print('rebuild');
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Provider_demo'),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: Center(
+        // 3
         child: Consumer<CounterModel>(
           builder: (context, value, child) {
             return Text(
@@ -23,7 +28,8 @@ class CounterApp extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        backgroundColor: Theme.of(context).primaryColor,        onPressed: () {
+          // 4
           Provider.of<CounterModel>(context, listen: false).incrementCounter();
         },
         child: Icon(Icons.add),
