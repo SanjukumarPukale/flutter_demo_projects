@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_demo/boxes.dart';
-import 'package:hive_demo/widget/transaction_dialog.dart' as dialog;
+import 'package:hive_demo/model/transaction.dart';
+import 'package:hive_demo/widget/transaction_dialog.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-
-import 'model/transaction.dart';
 
 class TransactionPage extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _TransactionPageState extends State<TransactionPage> {
           child: Icon(Icons.add),
           onPressed: () => showDialog(
             context: context,
-            builder: (context) => dialog.TransactionDialog(
+            builder: (context) => TransactionDialog(
               onClickedDone: addTransaction,
             ),
           ),
@@ -128,7 +128,7 @@ class _TransactionPageState extends State<TransactionPage> {
               icon: Icon(Icons.edit),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => dialog.TransactionDialog(
+                  builder: (context) => TransactionDialog(
                     transaction: transaction,
                     onClickedDone: (name, amount, isExpense) =>
                         editTransaction(transaction, name, amount, isExpense),
