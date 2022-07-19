@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:riverpod_icon_color_size_changer/color_picker.dart';
+import 'package:riverpod_icon_color_size_changer/model.dart';
+
 
 final sizeStateProvider = StateProvider<double>((ref) => 100);
 final colorStateProvider = StateProvider((ref) => 0);
 
 class HomePage extends ConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
-  // double _currentSliderValue = 100;
-  // int colorLevel = 0;
-
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
      double currentSliderValue = ref.watch(sizeStateProvider);
      int colorLevel = ref.watch(colorStateProvider);
+     print('rebuild');
 
     return Scaffold(
       appBar: AppBar(
@@ -37,8 +39,8 @@ class HomePage extends ConsumerWidget {
             ColorPicker(
                 index: colorLevel,
                 onTap: (selectedColor){
-                  // colorLevel = selectedColor; 
                   ref.read(colorStateProvider.notifier).state = selectedColor;
+
                 },
                 ),
                 const SizedBox(
@@ -51,7 +53,6 @@ class HomePage extends ConsumerWidget {
               divisions: 100,
               label: currentSliderValue.round().toString(),
               onChanged: (double value) {
-                // currentSliderValue = value; 
                 ref.read(sizeStateProvider.notifier).state = value;
               },
             ),
@@ -61,3 +62,4 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
+

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_icon_color_size_changer/home_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:riverpod_icon_color_size_changer/model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ModelAdapter());
+  await Hive.openBox('models');
+
   runApp(
     ProviderScope(
       child: const MyApp(),
